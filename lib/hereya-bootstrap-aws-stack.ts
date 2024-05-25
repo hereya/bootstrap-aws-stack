@@ -51,7 +51,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
                         commands: [
                             'cd source-code',
                             'npm install',
-                            'hereya remote exec $PWD --source ../project-source-code',
+                            'if [[ "$HEREYA_DEPLOY" == "true" ]] ; then hereya remote exec $PWD --source ../project-source-code; else hereya remote exec $PWD; fi',
                         ],
                     },
                 },
