@@ -9,6 +9,11 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
+        // create s3 bucket for storing hereya projects source code
+        const bucket = new s3.Bucket(this, 'hereya-projects-source-code', {
+            removalPolicy: cdk.RemovalPolicy.DESTROY,
+        });
+
         const project = new codebuild.Project(this, 'hereyaCdk', {
             projectName: 'hereyaCdk',
             environment: {
@@ -28,6 +33,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
                         PKG_REPO_URL: '',
                         HEREYA_PROJECT_S3_KEY: '',
                         HEREYA_DEPLOY: '',
+                        HEREYA_SOURCE_CODE_BUCKET: bucket.bucketName,
                     }
                 },
                 phases: {
@@ -43,7 +49,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
                         commands: [
                             'git clone $PKG_REPO_URL source-code/',
                             'if [[ "$HEREYA_DEPLOY" == "true" ]] ; then  aws s3 cp' +
-                            ' s3://hereya-projects-source-code/$HEREYA_PROJECT_S3_KEY' +
+                            ` s3://$HEREYA_SOURCE_CODE_BUCKET/$HEREYA_PROJECT_S3_KEY` +
                             ' project-source-code/ --recursive; fi',
                         ],
                     },
@@ -60,10 +66,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
         // Add permissions to the project's role
         project.role?.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'));
 
-        // create s3 bucket for storing hereya projects source code
-        const bucket = new s3.Bucket(this, 'hereya-projects-source-code', {
-            removalPolicy: cdk.RemovalPolicy.DESTROY,
-        });
+
 
         new CfnOutput(this, 'cdkCodebuildProjectName', {
             value: project.projectName,
