@@ -63,7 +63,6 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
         // create s3 bucket for storing hereya projects source code
         const bucket = new s3.Bucket(this, 'hereya-projects-source-code', {
             removalPolicy: cdk.RemovalPolicy.DESTROY,
-            bucketName: 'hereya-projects-source-code',
         });
 
         new CfnOutput(this, 'cdkCodebuildProjectName', {
@@ -74,6 +73,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
         new CfnOutput(this, 'hereyaSourceCodeBucketName', {
             value: bucket.bucketName,
             description: 'The name of the S3 bucket for storing hereya projects source code',
+            exportName: 'hereyaSourceCodeBucketName',
         })
     }
 }
