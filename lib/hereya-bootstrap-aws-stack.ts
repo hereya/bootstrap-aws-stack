@@ -49,9 +49,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
                     pre_build: {
                         commands: [
                             'git clone $PKG_REPO_URL source-code/',
-                            'if [[ "$HEREYA_DEPLOY" == "true" ]] ; then  aws s3 cp' +
-                            ` s3://$HEREYA_SOURCE_CODE_BUCKET/$HEREYA_PROJECT_S3_KEY` +
-                            ' project-source-code/ --recursive; fi',
+                            'if [[ "$HEREYA_DEPLOY" == "true" ]] ; then  aws s3 cp s3://$HEREYA_SOURCE_CODE_BUCKET/$HEREYA_PROJECT_S3_KEY project-source-code/ --recursive; fi',
                         ],
                     },
                     build: {
