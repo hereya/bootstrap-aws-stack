@@ -67,7 +67,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
         // Add permissions to the project's role
         project.role?.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'));
 
-        const terraformStateBucket = new s3.Bucket(scope, 'terraformStateBucket', {
+        const terraformStateBucket = new s3.Bucket(this, 'terraformStateBucket', {
             blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
             encryption: s3.BucketEncryption.S3_MANAGED,
             enforceSSL: true,
