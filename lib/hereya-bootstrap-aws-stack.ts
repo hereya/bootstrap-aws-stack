@@ -44,6 +44,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
                         },
                         commands: [
                             'npm install -g hereya-cli',
+                            'npm install -g aws-cdk',
                         ],
                     },
                     pre_build: {
