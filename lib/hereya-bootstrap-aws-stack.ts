@@ -40,7 +40,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
                 phases: {
                     install: {
                         'runtime-versions': {
-                            nodejs: '20.x',
+                            nodejs: '18.x',
                         },
                         commands: [
                             'npm install -g hereya-cli',
