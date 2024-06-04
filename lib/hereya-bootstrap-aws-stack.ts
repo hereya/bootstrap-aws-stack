@@ -113,9 +113,14 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
                             nodejs: '20.x',
                         },
                         commands: [
-                            'sudo yum install -y yum-utils',
-                            'sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo',
-                            'sudo yum -y install terraform',
+                            'sudo apt-get update && sudo apt-get install -y gnupg software-properties-common',
+                            'wget -O- https://apt.releases.hashicorp.com/gpg | \\\n' +
+                            'gpg --dearmor | \\\n' +
+                            'sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null\n',
+                            'echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \\\n' +
+                            'https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \\\n' +
+                            'sudo tee /etc/apt/sources.list.d/hashicorp.list\n',
+                            'sudo apt update && sudo apt install terraform',
                             'npm install -g hereya-cli',
                         ],
                     },
