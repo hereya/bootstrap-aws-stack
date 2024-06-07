@@ -13,6 +13,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
         // create s3 bucket for storing hereya projects source code
         const bucket = new s3.Bucket(this, 'hereya-projects-source-code', {
             removalPolicy: cdk.RemovalPolicy.DESTROY,
+            autoDeleteObjects: true,
         });
 
         const project = new codebuild.Project(this, 'hereyaCdk', {
@@ -71,7 +72,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
             encryption: s3.BucketEncryption.S3_MANAGED,
             enforceSSL: true,
             versioned: true,
-            removalPolicy: RemovalPolicy.RETAIN,
+            removalPolicy: RemovalPolicy.DESTROY,
         });
 
         const tfStateLockTable = new dynamodb.TableV2(this, 'terraformStateLock', {
