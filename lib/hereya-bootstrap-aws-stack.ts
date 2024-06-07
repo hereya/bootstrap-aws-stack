@@ -72,7 +72,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
             encryption: s3.BucketEncryption.S3_MANAGED,
             enforceSSL: true,
             versioned: true,
-            removalPolicy: RemovalPolicy.DESTROY,
+            removalPolicy: RemovalPolicy.RETAIN,
         });
 
         const tfStateLockTable = new dynamodb.TableV2(this, 'terraformStateLock', {
