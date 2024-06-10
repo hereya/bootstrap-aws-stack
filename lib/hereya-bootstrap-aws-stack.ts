@@ -113,6 +113,8 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
                             nodejs: '18.x',
                         },
                         commands: [
+                            'sudo add-apt-repository ppa:cncf-buildpacks/pack-cli',
+                            'sudo apt-get update -y && sudo apt-get install -y pack-cli',
                             'sudo apt-get update && sudo apt-get install -y gnupg software-properties-common',
                             'wget -O- https://apt.releases.hashicorp.com/gpg | \\\n' +
                             'gpg --dearmor | \\\n' +
