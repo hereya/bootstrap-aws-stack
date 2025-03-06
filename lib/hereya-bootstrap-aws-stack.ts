@@ -1,10 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
 import { CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-import * as codebuild from 'aws-cdk-lib/aws-codebuild';
-import * as iam from 'aws-cdk-lib/aws-iam';
-import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import { Construct } from 'constructs';
 
 export class HereyaBootstrapAwsStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -25,7 +23,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
             },
         });
 
-        const hereyaBackendBucket = new s3.Bucket(this, 'backendBucket', {
+        const hereyaBackendBucket = new s3.Bucket(this, 'hereyaBackendBucket', {
             blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
             encryption: s3.BucketEncryption.S3_MANAGED,
             enforceSSL: true,
