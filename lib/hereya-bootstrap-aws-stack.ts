@@ -25,6 +25,14 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
             },
         });
 
+        const hereyaBackendBucket = new s3.Bucket(this, 'backendBucket', {
+            blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+            encryption: s3.BucketEncryption.S3_MANAGED,
+            enforceSSL: true,
+            versioned: true,
+            removalPolicy: RemovalPolicy.RETAIN,
+        });
+
         new CfnOutput(this, 'terraformStateBucketRegion', {
             value: terraformStateBucket.env.region,
             description: 'The region of the S3 bucket for storing terraform state files',
@@ -41,6 +49,12 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
             value: tfStateLockTable.tableName,
             description: 'The name of the DynamoDB table for storing terraform state lock',
             exportName: 'hereyaTerraformStateLockTableName',
+        })
+
+        new CfnOutput(this, 'backendBucket', {
+            value: hereyaBackendBucket.bucketName,
+            description: 'The name of the S3 bucket for storing hereya backend files',
+            exportName: 'backendBucket',
         })
     }
 }
