@@ -29,6 +29,7 @@ export class HereyaBootstrapAwsStack extends cdk.Stack {
             enforceSSL: true,
             versioned: true,
             removalPolicy: RemovalPolicy.RETAIN,
+            objectLockEnabled: true,
         });
 
         new CfnOutput(this, 'terraformStateBucketRegion', {
